@@ -1,0 +1,46 @@
+window.main {
+      border: 8px solid #ffffff;
+      padding: 2px;
+}
+
+.progress-bar { 
+      background-color: red !important; 
+}
+
+
+description.head {
+      margin: 0px 0px 5px; font: 130% verdana,arial,helvetica
+}
+
+description.line {
+      margin: 0px 0px 5px; 
+      font: 130% verdana,arial,helvetica;
+      border-bottom: 2px solid #aaaaaa;
+}
+
+row.head {
+      background:#a6caf0;
+      font-weight: bold;
+}
+
+hbox.tabhead {
+      border: 1px solid #ffffff;
+      padding: 2px;
+}
+
+hbox.tabline {
+      border: 1px solid #ffffff;
+      padding: 2px;
+}
+
+description.info {
+      font-size: 80%;
+}
+
+space.zeile {
+      font-size: 125%;
+}
+
+td.tooltip {text-decoration:none;}
+.tooltip span.info{display:none;}
+.tooltip:hover span.info{display:block;position:absolute; width:200px; height:200px;}
