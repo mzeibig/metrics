@@ -27,7 +27,7 @@ public abstract class AntMetrics extends org.apache.tools.ant.Task {
      */
     private final Set<String> ignore = new TreeSet<String>();
 
-    FileWriter fw;
+    protected FileWriter fw;
 
     private String dirname;
 
@@ -88,13 +88,18 @@ public abstract class AntMetrics extends org.apache.tools.ant.Task {
         return outputFile;
     }
 
+    /**
+     * Liefert alle Unterverzeichnisse zu einem Verzeichnis.
+     *
+     * @param dir das Verzeichnis
+     * @return die Unterverzeichnisse
+     */
     File[] getSubdirs(final File dir) {
-        final File[] subdirs = dir.listFiles(new FileFilter() {
+        return dir.listFiles(new FileFilter() {
             public boolean accept(final File pathname) {
                 return pathname.isDirectory();
             }
         });
-        return subdirs;
     }
 
     /**
@@ -167,7 +172,7 @@ public abstract class AntMetrics extends org.apache.tools.ant.Task {
         }
     }
 
-    abstract void printIt(File dir) throws IOException;
+    abstract void printIt(final File dir) throws IOException;
 
     /**
      * Rekursive Verarbeitung aller (Unter-)Verzeichnisse.
@@ -197,10 +202,23 @@ public abstract class AntMetrics extends org.apache.tools.ant.Task {
         this.fw.write("  </" + elementName + ">\n");
     }
 
+    /**
+     * Schreibt die Statistiken zur analysierten Metrik.
+     *
+     * @param zaehler Verteilung
+     * @throws IOException im Fehlerfall
+     */
     void writeStats(final Map<Integer, Integer> zaehler) throws IOException {
         writeStats(zaehler, "stats");
     }
 
+    /**
+     * Schreibt die Statistiken zur analysierten Metrik mit einem gegebenen Rootelement.
+     *
+     * @param zaehler Verteilung
+     * @param elementName Name des Elementes
+     * @throws IOException im Fehlerfall
+     */
     void writeStats(final Map<Integer, Integer> zaehler, final String elementName) throws IOException {
         this.fw.write("  <" + elementName + ">\n");
         final Integer maxvalue = Collections.max(zaehler.keySet());
@@ -231,6 +249,12 @@ public abstract class AntMetrics extends org.apache.tools.ant.Task {
         return path;
     }
 
+    /**
+     * Liefert ein Klassenobjekt zu einem Klassennamen.
+     *
+     * @param className Name der Klasse
+     * @return Klassenobjekt
+     */
     JavaClass getForName(final String className) {
         if (this.forNameCache.containsKey(className)) {
             return this.forNameCache.get(className);
